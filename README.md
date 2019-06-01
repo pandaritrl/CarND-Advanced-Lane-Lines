@@ -1,25 +1,5 @@
 ## Advanced Lane Finding
 
-In this project, the goal is to write a software pipeline to identify the lane boundaries in a video. The following steps were used to identify the lanes on the road:
-* Calculate the camera distortions matrix using the checker board images
-* Undistort the car camera images using the distortion/calibration matrix
-* Use various color space thresholding and gradients to identify the lane line pixels in the images
-* Warp the images to get the bird's eye view image
-* Fit a polynomial to the lane pixels
-* Project the polynomial back on to the unwarped image with the curvature of the polynomial/road overlayed on top of the image
-
-Pipeline Description:
----
-The software pipeline I used consisted of the following steps:
-* Camera Distortion Correction
-  A checker board of known measurement was used for this purpose. Opencv function findChessboardCorners was used to identify the chessboard corners in the image. The image below shows a sample image with corner points identified.
-  ![Corner Points Identified](./camera_cal/corners_found2.jpg)
-The image points and object points are used to undistort the camera image. A sample raw and undistorted image is shown below:
-![Raw Image](./camera_cal/calibration2.jpg)
-![Distortion Removed](./camera_cal/test_undist_calibration2.jpg)
-
-The Project
----
 
 The goals / steps of this project are the following:
 
@@ -32,6 +12,42 @@ The goals / steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
+Pipeline Description:
+---
+In this project, the goal is to write a software pipeline to identify the lane boundaries in a video. The following steps were used to identify the lanes on the road:
+* Calculate the camera distortions matrix using the checker board images
+* Undistort the car camera images using the distortion/calibration matrix
+* Use various color space thresholding and gradients to identify the lane line pixels in the images
+* Warp the images to get the bird's eye view image
+* Fit a polynomial to the lane pixels
+* Project the polynomial back on to the unwarped image with the curvature of the polynomial/road overlayed on top of the image
+
+The pipeline stages are described below with sample output.
+The software pipeline I used consisted of the following steps:
+
+1. Camera Distortion Correction
+  A checker board of known measurement was used for this purpose. Opencv function findChessboardCorners was used to identify the chessboard corners in the image. The image below shows a sample image with corner points identified.
+  ![Corner Points Identified](./camera_cal/corners_found2.jpg)
+The image points and object points are used to undistort the camera image. A sample raw and undistorted image is shown below:
+
+Raw Image:
+![Raw Image](./camera_cal/calibration2.jpg)
+ Distortion Corrected Image:
+![Distortion Removed](./camera_cal/test_undist_calibration2.jpg)
+
+2. Identify lane pixels using a combination of color thresholding and gradient detection
+  HLS, HSV and RGB color spaces were used to identify the lane pixels. Sobel Transform was used after smoothing to identify vertical lines in the image.
+
+Car Camera Image:
+
+![Undistorted Image](./output_images/undistort_road_1.png)
+
+Lane Pixels Image:
+
+![Binary Thresholded Image](./output_images/undistort_binary_threshold.png)
+
+The Project
+---
 The images for camera calibration are stored in the folder called `camera_cal`.  The images in `test_images` are for testing your pipeline on single frames.  If you want to extract more test images from the videos, you can simply use an image writing method like `cv2.imwrite()`, i.e., you can read the video in frame by frame as usual, and for frames you want to save for later you can write to an image file.  
 
 To help the reviewer examine your work, please save examples of the output from each stage of your pipeline in the folder called `output_images`, and include a description in your writeup for the project of what each image shows.    The video called `project_video.mp4` is the video your pipeline should work well on.  
