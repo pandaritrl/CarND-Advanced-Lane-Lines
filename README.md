@@ -1,16 +1,22 @@
 ## Advanced Lane Finding
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
-![Lanes Image](./examples/example_output.jpg)
 
-In this project, your goal is to write a software pipeline to identify the lane boundaries in a video, but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
+In this project, the goal is to write a software pipeline to identify the lane boundaries in a video. The following steps were used to identify the lanes on the road:
+* Calculate the camera distortions matrix using the checker board images
+* Undistort the car camera images using the distortion/calibration matrix
+* Use various color space thresholding and gradients to identify the lane line pixels in the images
+* Warp the images to get the bird's eye view image
+* Fit a polynomial to the lane pixels
+* Project the polynomial back on to the unwarped image with the curvature of the polynomial/road overlayed on top of the image
 
-Creating a great writeup:
+Pipeline Description:
 ---
-A great writeup should include the rubric points as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
-
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup.
+The software pipeline I used consisted of the following steps:
+* Camera Distortion Correction
+  A checker board of known measurement was used for this purpose. Opencv function findChessboardCorners was used to identify the chessboard corners in the image. The image below shows a sample image with corner points identified.
+  ![Corner Points Identified](./camera_cal/corners_found2.jpg)
+The image points and object points are used to undistort the camera image. A sample raw and undistorted image is shown below:
+![Raw Image](./camera_cal/calibration2.jpg)
+![Distortion Removed](./camera_cal/test_undist_calibration2.jpg)
 
 The Project
 ---
