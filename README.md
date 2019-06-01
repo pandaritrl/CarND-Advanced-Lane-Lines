@@ -35,16 +35,24 @@ Raw Image:
  Distortion Corrected Image:
 ![Distortion Removed](./camera_cal/test_undist_calibration2.jpg)
 
-2. Identify lane pixels using a combination of color thresholding and gradient detection
-  HLS, HSV and RGB color spaces were used to identify the lane pixels. Sobel Transform was used after smoothing to identify vertical lines in the image.
+2. Identify lane pixels using a combination of color thresholding and gradient detection.
+  HLS, HSV and RGB color spaces were used to color thresholding the lane pixels. Sobel Transform was used after gaussian smoothing to identify vertical lines in the image.
 
 Car Camera Image:
 
-![Undistorted Image](./output_images/undistort_road_1.png)
+![Car Camera Image](./output_images/undistort_road_1.png)
 
 Lane Pixels Image:
 
-![Binary Thresholded Image](./output_images/undistort_binary_threshold.png)
+![Lane Pixels Image](./output_images/undistort_binary_threshold.png)
+
+3. Region selection:
+  A trapezoid ROI was used to filter out the pixels relevant for lane detection.
+![Region Selection Image](./output_images/region_select.png) 
+  
+4. Bird's eye view:
+  Opencv function `warpPerspective` was used to get a bird's eye view of the image. A sample image is shown below.
+![Bird's eye view](./output_images/warped_binary.png)  
 
 The Project
 ---
