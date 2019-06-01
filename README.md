@@ -54,6 +54,11 @@ Lane Pixels Image:
   Opencv function `warpPerspective` was used to get a bird's eye view of the image. A sample image is shown below.
 ![Bird's eye view](./output_images/warped_binary.png)  
 
+5. Fit polynomial to the lanes:
+The image is vertically segemented into two, one for left lane and the other for right lane. The two segments are then broken into several sub segments and a histogram of activated pixels in the vertical direction is used to place a selctive window on the lane pixels. The window is slowly slid up vertically and moved to the left or right to center on the activated pixels if the number of activated pixels in the window is greater than a threshold.
+![Fit Polynomial](./output_images/fit_polynomial.png)  
+
+
 The Project
 ---
 The images for camera calibration are stored in the folder called `camera_cal`.  The images in `test_images` are for testing your pipeline on single frames.  If you want to extract more test images from the videos, you can simply use an image writing method like `cv2.imwrite()`, i.e., you can read the video in frame by frame as usual, and for frames you want to save for later you can write to an image file.  
