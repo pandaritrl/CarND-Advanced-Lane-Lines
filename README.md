@@ -48,16 +48,30 @@ Lane Pixels Image:
 
 3. Region selection:
   A trapezoid ROI was used to filter out the pixels relevant for lane detection.
+  
 ![Region Selection Image](./output_images/region_select.png) 
   
 4. Bird's eye view:
   Opencv function `warpPerspective` was used to get a bird's eye view of the image. A sample image is shown below.
+  
 ![Bird's eye view](./output_images/warped_binary.png)  
 
 5. Fit polynomial to the lanes:
-The image is vertically segemented into two, one for left lane and the other for right lane. The two segments are then broken into several sub segments and a histogram of activated pixels in the vertical direction is used to place a selctive window on the lane pixels. The window is slowly slid up vertically and moved to the left or right to center on the activated pixels if the number of activated pixels in the window is greater than a threshold.
-![Fit Polynomial](./output_images/fit_polynomial.png)  
+  The image is vertically segemented into two, one for left lane and the other for right lane. The two segments are then broken into several sub segments and a histogram of activated pixels in the vertical direction is used to place a selctive window on the lane pixels. The window is slowly slid up vertically and moved to the left or right to center on the activated pixels if the number of activated pixels in the window is greater than a threshold.
+  
+![Fit Polynomial](./output_images/fit_polynomial.png)
 
+6. Search around polynomial:
+  If the previous polynomial fit is good enough then a search around polynomial function is executed. Here a window is drawn around the initial polynomial fit and a polynomial is fit to the activated pixels around the polynomial.
+  
+![Search around polynomial](./output_images/search_around_poly.png)
+
+7. Measure the curvature of the lane:
+The following formula was used to calculate the curvature of the lane:
+<a href="https://www.codecogs.com/eqnedit.php?latex=R_{Curve}&space;=&space;\frac{(1&space;&plus;&space;(2Ay&space;&plus;&space;B)^{2})^{\frac{3}{2}}}{\left&space;|&space;2A\right&space;|}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?R_{Curve}&space;=&space;\frac{(1&space;&plus;&space;(2Ay&space;&plus;&space;B)^{2})^{\frac{3}{2}}}{\left&space;|&space;2A\right&space;|}" title="R_{Curve} = \frac{(1 + (2Ay + B)^{2})^{\frac{3}{2}}}{\left | 2A\right |}" /></a>
+
+The final result along with the undistorted road image is shown below:
+![Pipeline Result](./output_images/pipeline_result.png)
 
 The Project
 ---
