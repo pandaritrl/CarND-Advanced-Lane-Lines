@@ -57,12 +57,12 @@ Lane Pixels Image:
 ![Bird's eye view](./output_images/warped_binary.png)  
 
 ### 5. Fit polynomial to the lanes:
-  The image is vertically segemented into two, one for left lane and the other for right lane. The two segments are then broken into several sub segments and a histogram of activated pixels in the vertical direction is used to place a selctive window on the lane pixels. The window is slowly slid up vertically and moved to the left or right to center on the activated pixels if the number of activated pixels in the window is greater than a threshold.
+  The image is vertically segemented into two, one for left lane and the other for right lane. The two segments are then broken into several sub segments and a histogram of activated pixels in the vertical direction is used to place a selctive window on the lane pixels. The window is slowly slid up vertically and moved to the left or right of center from the previous window, if the number of activated pixels in the window is greater than a threshold.
   
 ![Fit Polynomial](./output_images/fit_polynomial.png)
 
 ### 6. Search around polynomial:
-  If the previous polynomial fit is good enough then a search around polynomial function is executed. Here a window is drawn around the initial polynomial fit and a polynomial is fit to the activated pixels around the polynomial.
+  If the previous polynomial fit is good enough then a search around polynomial function is executed. Here a window is drawn around the initial polynomial fit and a polynomial is fit to the activated pixels around the polynomial. Here I added extra weightage to the points at the bottom that are more reliable and clearly visible on the camera. This assists the algorithm in finding the correct lines on the road if there are multiple lane lines visible to the camera.
   
 ![Search around polynomial](./output_images/search_around_poly.png)
 
