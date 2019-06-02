@@ -77,3 +77,15 @@ The final result along with the undistorted road image is shown below:
 ---
 The project final video is stored in `project_video.mp4` in output_images folder. Here's a [link to my video result](./output_images/project_video.mp4)
 
+The challenge videos are also stored in the same location. The outputs for the challenge are problematic due to following reasons:
+* The lane marking are faded out
+* Dark shadows in bright sunlight trips sobel edge detection algorithm
+* Yellow grass triggers color thresholding detection methods
+* Road barrier shadows trips sobel edge detection algorithm
+* Sharp turns where right lane is completely not visible to the camera
+
+The pipeline can be improved by using following methods:
+* Adding a low pass filter to the lane polynomials
+* Removing outliers like objects on the road by analyzing the size and aspect ratio of objects
+* Filtering algorithm that can check whether left and right lane detections are intersecting and if so reject the one that's less feasible.
+
